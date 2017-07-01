@@ -19,9 +19,12 @@ class BikeShareApp < Sinatra::Base
   end
 
   post '/stations/new' do
-    @station = Station.create(params[:station])
-    redirect "/stations"
-    #add id at end #{}
+    @station = Station.new(params[:station])
+    if @station.save
+      redirect "/stations"
+    else
+      flash[:error] = "Format of the email was wrong."
+    end
   end
 
   get '/stations/:id/edit' do
