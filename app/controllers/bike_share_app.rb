@@ -23,13 +23,17 @@ class BikeShareApp < Sinatra::Base
     if @station.save
       redirect "/stations"
     else
-      flash[:error] = "Format of the email was wrong."
+      redirect '/error'
     end
   end
 
   get '/stations/:id/edit' do
     @station = Station.find(params[:id])
     erb :"stations/edit"
+  end
+
+  get '/error' do
+    erb :"error"
   end
 
   put '/stations/:id' do |id|
