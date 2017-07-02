@@ -2,9 +2,9 @@ require 'csv'
 require 'pry'
 require 'Date'
 require 'active_support/core_ext/time'
-require_relative '../app/models/city'
-require_relative '../app/models/station_name'
-require_relative '../app/models/bike_share_date'
+require './app/models/city'
+require './app/models/station_name'
+require './app/models/bike_share_date'
 
 City.destroy_all
 StationName.destroy_all
