@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'sinatra', require: 'sinatra/base'
-gem 'sinatra-flash'
 gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
