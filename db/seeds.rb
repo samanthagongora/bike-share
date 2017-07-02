@@ -1,13 +1,16 @@
 require 'csv'
+require 'pry'
 require_relative '../app/models/city'
 require_relative '../app/models/station_names'
+require_relative '../app/models/bike_share_date'
 
 City.destroy_all
 StationName.destroy_all
+BikeShareDate.destroy_all
 
 city_text = File.read('./db/csv/city.csv')
-city = CSV.parse(city_text, :headers => true, header_converters: :symbol)
-city.each do |row|
+city_csv = CSV.parse(city_text, :headers => true, header_converters: :symbol)
+city_csv.each do |row|
   city = City.find_or_create_by!(name: row[:name])
 end
 
@@ -16,6 +19,20 @@ station_names = CSV.parse(station_names_text, :headers => true, header_converter
 station_names.each do |row|
   station_names = StationName.find_or_create_by!(name: row[:name])
 end
+
+station_dates_text = File.read('./db/csv/station_dates.csv')
+station_dates_csv =  CSV.parse(station_dates_text, :headers => true, header_converters: :symbol)
+station_dates_csv.each do |row|
+  station_dates = BikeShareDate.find_or_create_by!(date: row[:installation_date])
+end
+# all_dates = station_dates_csv.map do |row|
+#   row[:installation_date]
+#   end
+# dates = all_dates.uniq
+
+# dates.each do |date|
+#   station_dates = BikeShareDate.find_or_create_by!(date: date)
+# end
 
 # station_text = File.read('./db/csv/station.csv')
 # station = CSV.parse(station_text, :headers => true, header_converters: :symbol)
