@@ -23,7 +23,8 @@ class BikeShareApp < Sinatra::Base
     if @station.save
       redirect "/stations"
     else
-      redirect '/error'
+      @params[:page] = :"/stations/new"
+      erb :"/error"
     end
   end
 
@@ -37,8 +38,13 @@ class BikeShareApp < Sinatra::Base
   end
 
   put '/stations/:id' do |id|
-    Station.update(id.to_i, params[:station])
-    redirect "/stations/#{id}"
+    if Station.update(id.to_i, params[:station]) == false
+      @params[:page] = :"/stations/new"
+      erb :"/error"
+    else
+      Station.update(id.to_i, params[:station])
+      redirect "/stations/#{id}"
+    end
   end
 
   delete '/stations/:id' do |id|
