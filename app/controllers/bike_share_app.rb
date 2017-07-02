@@ -13,6 +13,18 @@ class BikeShareApp < Sinatra::Base
     erb :"stations/new"
   end
 
+  get '/station-dashboard' do
+    @count = Station.total_station_count
+    @average = Station.average_bikes_per_station
+    @most_bikes = Station.most_bikes_avaiable
+    @stations_with_most_bikes = Station.stations_with_most_bikes
+    @fewest_bikes_avaiable = Station.fewest_bikes_avaiable
+    @stations_with_fewest_bikes = Station.stations_with_fewest_bikes
+    @most_recent_station = Station.most_recent_station
+    @oldest_station = Station.oldest_station
+    erb :"stations/station-dashboard"
+  end
+
   get '/stations/:id' do
     @station = Station.find(params[:id])
     erb :"stations/show"
@@ -51,5 +63,19 @@ class BikeShareApp < Sinatra::Base
     Station.destroy(id.to_i)
     redirect '/stations'
   end
+
+  def execute_statement(sql)
+     results = ActiveRecord::Base.connection.execute(sql)
+     if results.present?
+         return results
+     else
+         return nil
+     end
+ end
+
+
+
+
+
 
 end

@@ -1,12 +1,30 @@
-<!-- <div class="container text-center"> -->
-  <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-      <h1><%= @station.name %></h1>
-      <p><%= @station.dock_count %></p>
-      <p><%= @station.city %></p>
-      <p><%= @station.installation_date %></p>
+<div class="jumbotron">
+  <h1><%= @station.name %></h1>
+</div>
+<div class="table-responsive">
+  <table class="table text-left">
+    <tr>
+      <th>Dock Count</th>
+      <th>City</th>
+      <th>Installation Date</th>
+      <th>Edit</th>
+      <th>Delete<th></tr>
+        <tr>
+          <td><%= @station.dock_count %></td>
+          <td><%= @station.city %></td>
+          <td><%= @station.installation_date %></td>
+          <td>
+            <form action="/stations/<%= @station.id %>/edit" method="get">
+              <button type="submit" class="btn btn-primary btn active" role="button" aria-pressed="true" value="edit">Edit</a>
+            </form>
+          </td>
+
+          <td>
+            <form action="/stations/<%= @station.id %>" method="POST">
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit" class="btn btn-primary btn active" role="button" aria-pressed="true" value="delete">Delete</a>
+            </form>
+          </td>
+        </tr>
+      </table>
     </div>
-    <div class="col-md-2"></div>
-  </div>
-<!-- </div> -->
