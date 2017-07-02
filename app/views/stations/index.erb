@@ -1,0 +1,23 @@
+<div class="col-md-2"></div>
+<div class="col-md-8">
+  <h1>Stations</h1>
+
+  <% @stations.each do |station| %>
+  <fieldset>
+    <h3><%= station.name %></h3>
+    <p><%= station.dock_count %></p>
+    <p><%= station.city %></p>
+    <p><%= station.installation_date %></p>
+    <form action="/stations/<%= station.id %>/edit" method="get">
+      <input type="submit" value="edit"/>
+    </form>
+
+    <form action="/stations/<%= station.id %>" method="POST">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" value="delete"/>
+    </form>
+  </fieldset>
+  <br/>
+  <% end %>
+</div>
+<div class="col-md-2"></div>
