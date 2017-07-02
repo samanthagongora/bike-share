@@ -6,4 +6,9 @@ class Station < ActiveRecord::Base
   validates :dock_count, presence: true
   validates :city_id, presence: true
   validates :installation_date_id, presence: true
+
+
+  def installation_date
+    BikeShareDate.find(installation_date_id)
+  end
 end

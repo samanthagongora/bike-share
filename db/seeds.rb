@@ -17,7 +17,7 @@ station_csv = CSV.parse(station_text, :headers => true, header_converters: :symb
 station_csv.each do |row|
   station_name      = StationName.find_or_create_by!(name: row[:name])
   date              = DateTime.strptime(row[:installation_date], '%m/%d/%Y')
-  installation_date = BikeShareDate.find_or_create_by!(date: date)
+  installation_date = BikeShareDate.find_or_create_by!(bike_share_date: date)
   city              = City.find_or_create_by!(name: row[:city])
   Station.find_or_create_by!(station_id:           row[:id],
                              station_name_id:      station_name.id,
