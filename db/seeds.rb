@@ -1,5 +1,7 @@
 require 'csv'
 require 'pry'
+require 'Date'
+require 'active_support/core_ext/time'
 require_relative '../app/models/city'
 require_relative '../app/models/station_names'
 require_relative '../app/models/bike_share_date'
@@ -23,7 +25,8 @@ end
 station_dates_text = File.read('./db/csv/station_dates.csv')
 station_dates_csv =  CSV.parse(station_dates_text, :headers => true, header_converters: :symbol)
 station_dates_csv.each do |row|
-  station_dates = BikeShareDate.find_or_create_by!(date: row[:installation_date])
+  date = DateTime.strptime(row[:installation_date], '%m/%d/%Y')
+  station_dates = BikeShareDate.find_or_create_by!(date: date)
 end
 # all_dates = station_dates_csv.map do |row|
 #   row[:installation_date]
